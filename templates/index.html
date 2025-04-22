@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Home</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="/static/images/favicon.png" rel="icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="/static/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Impact
+  * Template URL: https://bootstrapmade.com/impact-bootstrap-business-website-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header fixed-top">
+    <div class="branding d-flex align-items-cente">
+      <div class="container position-relative d-flex align-items-center justify-content-between">
+        <a href="{{ url_for('index') }}" class="logo d-flex align-items-center">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <!-- <img src="assets/img/logo.png" alt=""> -->
+          <h1 class="sitename">Oracle Capital</h1>
+          <span>.</span>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="#hero" class="active">Home<br></a></li>
+            <li><a href="#page1">CPPI</a></li>
+            <li><a href="#page2">OBPI</a></li>
+            <li><a href="#page3">Comparison</a></li>
+            <li><a href="#footer">About Us</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section accent-background">
+      <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-5 justify-content-between">
+          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+            <h2><span>Welcome to </span><span class="accent">Quant Edge</span></h2>
+            <p>Advanced Numerical Methods for Financial Engineering </p>
+            <div class="d-flex">
+              <a href="https://github.com/wassim-kerdoun" target="_blank" rel="noopener noreferrer" class="btn-get-started">View Code on GitHub</a>
+            </div>
+          </div>
+          <div class="col-lg-5 order-1 order-lg-2">
+            <img src="/static/images/hero-img.svg" class="img-fluid" alt="">
+          </div>
+        </div>
+      </div>
+
+      <div class="icon-boxes position-relative" data-aos="fade-up" data-aos-delay="200">
+        <div class="container position-relative">
+          <div class="row gy-4 mt-5 justify-content-center">
+            <div class="col-xl-4 col-md-6">
+              <div class="icon-box">
+                <div class="icon"><i class="bi bi-easel"></i></div>
+                <h4 class="title"><a href="{{ url_for('run_cppi') }}" rel="noopener noreferrer" class="stretched-link">CPPI</a></h4>
+              </div>
+            </div><!--End Icon Box -->
+
+            <div class="col-xl-4 col-md-6">
+              <div class="icon-box">
+                <div class="icon"><i class="bi bi-bar-chart-line-fill"></i></div>
+                <h4 class="title"><a href="{{ url_for('run_obpi') }}"  rel="noopener noreferrer" class="stretched-link">OBPI</a></h4>
+              </div>
+            </div><!--End Icon Box -->
+
+            <div class="col-xl-4 col-md-6">
+              <div class="icon-box">
+                <div class="icon"><i class="bi bi-calculator"></i></div>
+                <h4 class="title"><a href="{{ url_for('run_comparison') }}"  rel="noopener noreferrer" class="stretched-link">Comparison</a></h4>
+              </div>
+            </div><!--End Icon Box -->
+
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <!-- CPPI Section -->
+    <section id="page1" class="about section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Constant Proportion Portfolio Insurance (CPPI)</h2>
+        <p>A dynamic strategy to protect capital while capturing upside potential.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <img src="/static/images/about.png" class="img-fluid rounded-4 mb-4" alt="CPPI Strategy">
+            <p>
+              <b>Constant Proportion Portfolio Insurance (CPPI)</b> is a portfolio management strategy designed to ensure a minimum level of capital protection while allowing exposure to risky assets for potential gains. It dynamically allocates assets between a risky portfolio (e.g., equities) and a safe asset (e.g., bonds) based on a predefined multiplier and a floor value.
+            </p>
+            <p>
+              The strategy calculates a <b>cushion</b>—the difference between the portfolio value and the floor—and invests a multiple of this cushion in risky assets. As market conditions change, CPPI rebalances to maintain protection against losses while capturing upside returns.
+            </p>
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="250">
+            <div class="content ps-0 ps-lg-5">
+              <p>
+                Key features of CPPI include:
+              </p>
+              <ul>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Guarantees a minimum portfolio value at maturity, protecting against downside risk.</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Allows participation in market upswings through dynamic allocation.</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Uses numerical methods like Monte Carlo simulations to model portfolio performance under various market scenarios.</span></li>
+              </ul>
+              <p>
+                CPPI is widely used in structured products and wealth management to balance safety and growth.
+              </p>
+              <div class="position-relative mt-4">
+                <img src="/static/images/about-2.jpg" class="img-fluid rounded-4" alt="Portfolio Management">
+                <a href="https://www.youtube.com/watch?v=jejjUPfaIXY" class="glightbox pulsating-play-btn"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /CPPI Section -->
+
+    <!-- OBPI Section -->
+    <section id="page2" class="about section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Option Based Portfolio Insurance (OBPI)</h2>
+        <p>Protecting portfolios through strategic option replication.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <img src="/static/images/gbm-simulation (2).png" class="img-fluid rounded-4 mb-4" alt="OBPI Strategy">
+            <p>
+              <b>Option Based Portfolio Insurance (OBPI)</b> is a strategy that protects a portfolio’s value by replicating the payoff of a put option. It combines a risky asset (e.g., a stock index) with a protective mechanism to ensure the portfolio does not fall below a specified floor at maturity.
+            </p>
+            <p>
+              OBPI achieves this by dynamically adjusting the allocation between risky assets and safe assets to mimic the behavior of a put option, which provides downside protection while allowing upside participation.
+            </p>
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="250">
+            <div class="content ps-0 ps-lg-5">
+              <p>
+                Key features of OBPI include:
+              </p>
+              <ul>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Ensures a minimum portfolio value through option-like payoffs.</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Relies on stochastic models like Geometric Brownian Motion to simulate asset prices.</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span>Requires sophisticated numerical techniques for accurate option replication.</span></li>
+              </ul>
+              <p>
+                OBPI is commonly used in financial engineering to design products that offer capital guarantees with market exposure.
+              </p>
+              <div class="position-relative mt-4">
+                <img src="/static/images/about-2.jpg" class="img-fluid rounded-4" alt="Option Pricing">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /OBPI Section -->
+
+    <!-- Comparison Section -->
+    <section id="page3" class="about section">
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Comparison of CPPI and OBPI</h2>
+        <p>Evaluating two portfolio insurance strategies for optimal risk management.</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <img src="/static/images/heston-model.png" class="img-fluid rounded-4 mb-4" alt="Portfolio Comparison">
+            <p>
+              The comparison of <b>CPPI</b> and <b>OBPI</b> focuses on their mechanisms, performance, and suitability for different market conditions. Both strategies aim to protect a portfolio’s value while allowing growth, but they differ in their approach and implementation.
+            </p>
+            <p>
+              CPPI uses a rule-based allocation driven by a multiplier and cushion, while OBPI replicates an option payoff through dynamic hedging. Their effectiveness depends on factors like market volatility, transaction costs, and investor risk tolerance.
+            </p>
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="250">
+            <div class="content ps-0 ps-lg-5">
+              <p>
+                Key differences include:
+              </p>
+              <ul>
+                <li><i class="bi bi-check-circle-fill"></i> <span><b>Mechanism</b>: CPPI adjusts allocations based on a cushion; OBPI mimics a put option.</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span><b>Complexity</b>: CPPI is simpler to implement; OBPI requires advanced modeling for option replication.</span></li>
+                <li><i class="bi bi-check-circle-fill"></i> <span><b>Performance</b>: CPPI may outperform in trending markets; OBPI excels in volatile conditions.</span></li>
+              </ul>
+              <p>
+                Numerical simulations, such as Monte Carlo methods with stochastic volatility models, help quantify their trade-offs for informed decision-making.
+              </p>
+              <div class="position-relative mt-4">
+                <img src="/static/images/heston-simulation.png" class="img-fluid rounded-4" alt="Strategy Comparison">
+                <a href="https://www.youtube.com/watch?v=kv7q7nb9_jQ" class="glightbox pulsating-play-btn"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Comparison Section -->
+
+  </main>
+
+  <footer id="footer" class="footer accent-background">
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">Oracle Capital</span>
+          </a>
+          <div class="social-links d-flex mt-4">
+            <a href="mailto:wassim.kerdoun@edu.uiz.ac.ma"><i class="bi bi-mailbox"></i></a>
+            <a href="https://github.com/wassim-kerdoun" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
+            <a href="https://www.linkedin.com/in/wassim-kerdoun-494a89246/" target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#page1">CPPI</a></li>
+            <li><a href="#page2">OBPI</a></li>
+            <li><a href="#page3">Comparison</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>ENSA Agadir</p>
+          <p>Morocco</p>
+          <p><strong>Email:</strong> <span>wassim.kerdoun@edu.uiz.ac.ma</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Oracle Capital</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/vendor/php-email-form/validate.js"></script>
+  <script src="/static/vendor/aos/aos.js"></script>
+  <script src="/static/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/static/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/static/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="/static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="/static/main.js"></script>
+
+</body>
+
+</html>

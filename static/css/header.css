@@ -1,0 +1,273 @@
+/* Modern CSS Variables */
+:root {
+    --navbar-bg: #4a90e2;
+    --navbar-hover: #71a1d7;
+    --navbar-active: #01438f;
+    --navbar-height: 60px;
+    --navbar-padding: 1rem;
+    --navbar-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    --navbar-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --navbar-border-radius: 30px;
+    --navbar-font: 'Roboto', system-ui, -apple-system, sans-serif;
+}
+
+/* Nav Container */
+.nav-container {
+    display: flex;
+    align-items: center; /* Vertically center items */
+    padding: 10px; /* Add some padding */
+    background-color: #f8f9fa; /* Optional: Add a background color */
+}
+
+/* Logo Container */
+.navbar-logo {
+    margin-right: 20px; /* Add space between the logo and the nav links */
+}
+
+/* Logo Image */
+.navbar-logo img {
+    width: 40px; /* Set the width of the image */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 50%; /* Optional: Make the image circular */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
+/* Navbar Links */
+.navbar-custom {
+    flex-grow: 1; /* Allow the navbar to take up remaining space */
+}
+
+/* Active Link Styling */
+.nav-item.active .nav-link {
+    font-weight: bold; /* Highlight the active link */
+}
+
+/* Enhanced Navbar Base */
+.navbar-custom {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--navbar-height);
+    background: linear-gradient(135deg, var(--navbar-bg), var(--navbar-active));
+    box-shadow: var(--navbar-shadow);
+    font-family: var(--navbar-font);
+    font-weight: 500;
+    font-size: 1.125rem;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: var(--navbar-transition);
+}
+
+/* Scroll Effect */
+.navbar-custom.scrolled {
+    background: rgba(74, 144, 226, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    height: calc(var(--navbar-height) - 10px);
+}
+
+/* Brand Logo Styling */
+.navbar-custom .navbar-brand {
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: calc(var(--navbar-padding) / 2) var(--navbar-padding);
+    position: relative;
+    overflow: hidden;
+}
+
+.navbar-custom .navbar-brand::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--navbar-padding);
+    width: calc(100% - (var(--navbar-padding) * 2));
+    height: 2px;
+    background: #ffffff;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.navbar-custom .navbar-brand:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Enhanced Nav Links */
+.navbar-custom .nav-link {
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem 1.25rem;
+    margin: 0 0.25rem;
+    border-radius: var(--navbar-border-radius);
+    transition: var(--navbar-transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.navbar-custom .nav-link:hover {
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* Active Link State with Enhanced Effects */
+.navbar-custom .nav-link.active-link {
+    background: var(--navbar-active);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(1, 67, 143, 0.3);
+    position: relative;
+    transform: translateY(-2px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.navbar-custom .nav-link.active-link::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, #4a90e2, #01438f);
+    border-radius: var(--navbar-border-radius);
+    filter: blur(8px);
+    opacity: 0.7;
+    z-index: -1;
+    animation: activeGlow 2s ease-in-out infinite;
+}
+
+.navbar-custom .nav-link.active-link::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: linear-gradient(
+        45deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.08) 30%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.08) 70%,
+        transparent 100%
+    );
+    animation: shimmer 4s linear infinite;
+}
+
+/* Animations */
+@keyframes activeGlow {
+    0%, 100% {
+        opacity: 0.7;
+        filter: blur(8px);
+    }
+    50% {
+        opacity: 0.9;
+        filter: blur(12px);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: rotate(45deg) translateY(0%);
+    }
+    100% {
+        transform: rotate(45deg) translateY(33.33%);
+    }
+}
+
+/* Centered Navigation */
+.navbar-centered .navbar-nav {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Enhanced Toggler Button */
+.navbar-custom .navbar-toggler {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: var(--navbar-transition);
+}
+
+.navbar-custom .navbar-toggler:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+}
+
+.navbar-custom .navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+    outline: none;
+}
+
+/* Modern Hamburger Icon */
+.navbar-custom .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    transition: var(--navbar-transition);
+}
+
+/* Body Padding */
+body {
+    padding-top: var(--navbar-height);
+    transition: var(--navbar-transition);
+}
+
+/* Responsive Design */
+@media (max-width: 991.98px) {
+    .navbar-custom {
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-custom .navbar-collapse {
+        background: var(--navbar-bg);
+        border-radius: 0 0 1rem 1rem;
+        padding: 1rem;
+        margin-top: 0.5rem;
+        box-shadow: var(--navbar-shadow);
+    }
+
+    .navbar-centered .navbar-nav {
+        gap: 0.5rem;
+    }
+
+    .navbar-custom .nav-link {
+        margin: 0.25rem 0;
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* Animation for Mobile Menu */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.navbar-collapse.show {
+    animation: slideDown 0.3s ease forwards;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .navbar-custom,
+    .navbar-custom *,
+    body {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* High Contrast Mode */
+@media (forced-colors: active) {
+    .navbar-custom {
+        border-bottom: 2px solid ButtonText;
+    }
+    
+    .navbar-custom .nav-link.active-link {
+        outline: 2px solid ButtonText;
+    }
+}

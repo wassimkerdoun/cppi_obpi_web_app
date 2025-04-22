@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+
+{% block title %}OBPI Strategy Results{% endblock %}
+
+{% block content %}
+<main class="content" style="margin-left: 350px; padding: 20px;">
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mb-4">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        <i class="bi {% if category == 'success' %}bi-check-circle{% else %}bi-exclamation-triangle{% endif %} mr-2"></i>
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="text-center d-none">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <p>Running simulation... Please wait.</p>
+    </div>
+
+    <!-- OBPI Results and Input Parameters -->
+    <div class="row align-items-stretch">
+        <!-- Left Column: OBPI Results -->
+        <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card shadow border-0 rounded" style="background: white;">
+                <div class="card-header bg-primary text-white py-3">
+                    <h3 class="mb-0 font-weight-bold">OBPI Strategy Results</h3>
+                </div>
+                <div class="card-body p-4">
+                    {% if results %}
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-borderless align-middle">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Metric</th>
+                                        <th scope="col">OBPI</th>
+                                        <th scope="col">Buy-and-Hold</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Sharpe Ratio</strong></td>
+                                        <td>{{ "%.4f"|format(results['sharpe_portfolio']) }}</td>
+                                        <td>{{ "%.4f"|format(results['sharpe_buy_and_hold']) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Maximum Drawdown</strong></td>
+                                        <td>{{ "%.2f"|format(results['mdd_portfolio'] * 100) }}%</td>
+                                        <td>{{ "%.2f"|format(results['mdd_buy_and_hold'] * 100) }}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Final Portfolio Value</strong></td>
+                                        <td>${{ "%.2f"|format(results['final_portfolio_value']) }}</td>
+                                        <td>${{ "%.2f"|format(results['final_buy_and_hold_value']) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Number of Shares</strong></td>
+                                        <td>{{ "%.2f"|format(results['n_shares']) }}</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info mb-0">
+                            <i class="bi bi-info-circle mr-2"></i>
+                            No simulation results available. Submit the sidebar form to run the simulation.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Input Parameters -->
+        <div class="col-lg-6 col-md-12 mb-4">
+            <div class="card shadow border-0 rounded" style="background: white;">
+                <div class="card-header bg-primary text-white py-3">
+                    <h3 class="mb-0 font-weight-bold">Input Parameters</h3>
+                </div>
+                <div class="card-body p-4">
+                    {% if session.get('risky_ticker') %}
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped table-borderless align-middle">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Parameter</th>
+                                        <th scope="col">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Initial Capital</strong></td>
+                                        <td>${{ "%.2f"|format(session.get('initial_capital', 10000)) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Floor</strong></td>
+                                        <td>{{ "%.2f"|format(session.get('floor', 0.9)) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Risk-Free Rate</strong></td>
+                                        <td>{{ "%.2f"|format(session.get('risk_free_rate', 0.02) * 100) }}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Risky Asset</strong></td>
+                                        <td>{{ session.get('risky_ticker', 'SPY') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Pricing Method</strong></td>
+                                        <td>{{ session.get('pricing_method', 'N/A') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Strategy</strong></td>
+                                        <td>{{ session.get('strategy', 'N/A') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Start Date</strong></td>
+                                        <td>{{ session.get('start_date', '2020-01-01') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>End Date</strong></td>
+                                        <td>{{ session.get('end_date', '2023-12-31') }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info mb-0">
+                            <i class="bi bi-info-circle mr-2"></i>
+                            No inputs submitted. Use the sidebar form to run the simulation.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plots Section -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            {% if not plot_links %}
+                <div class="col-12">
+                    <div class="alert alert-info text-center">
+                        <i class="bi bi-info-circle mr-2"></i>
+                        No plots available. Run the simulation to generate charts.
+                    </div>
+                </div>
+            {% endif %}
+            {% if plot_links and plot_links.get('portfolio') %}
+                <div class="col-12 mb-4">
+                    <div class="card shadow border-0 rounded">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h3 class="mb-0 font-weight-bold">Portfolio Value</h3>
+                        </div>
+                        <div class="card-body text-center p-0">
+                            <img src="{{ url_for('static', filename='plots/' + plot_links['portfolio']) }}" 
+                                 alt="OBPI Portfolio Value" 
+                                 class="img-fluid rounded-bottom" 
+                                 style="max-width: 100%;">
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if plot_links and plot_links.get('components') %}
+                <div class="col-12 mb-4">
+                    <div class="card shadow border-0 rounded">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h3 class="mb-0 font-weight-bold">Portfolio Components</h3>
+                        </div>
+                        <div class="card-body text-center p-0">
+                            <img src="{{ url_for('static', filename='plots/' + plot_links['components']) }}" 
+                                 alt="OBPI Portfolio Components" 
+                                 class="img-fluid rounded-bottom" 
+                                 style="max-width: 100%;">
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if plot_links and plot_links.get('volatility') %}
+                <div class="col-12 mb-4">
+                    <div class="card shadow border-0 rounded">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h3 class="mb-0 font-weight-bold">Volatility</h3>
+                        </div>
+                        <div class="card-body text-center p-0">
+                            <img src="{{ url_for('static', filename='plots/' + plot_links['volatility']) }}" 
+                                 alt="OBPI Volatility" 
+                                 class="img-fluid rounded-bottom" 
+                                 style="max-width: 100%;">
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("obpi-form");
+        const spinner = document.getElementById("loading-spinner");
+
+        if (form && spinner) {
+            form.addEventListener("submit", function () {
+                spinner.classList.remove("d-none");
+            });
+        }
+    });
+</script>
+{% endblock %}

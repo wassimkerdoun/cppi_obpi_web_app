@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="/static/scripts.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <!-- Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/sidebar.css">
+    <link rel="stylesheet" href="/static/css/content.css">
+
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css">
+
+    <style>
+        /* Navbar Styling */
+        .navbar-custom {
+            background: #4361ee;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            padding: 0.75rem 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .navbar-logo img {
+            height: 36px;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-logo img:hover {
+            transform: scale(1.1);
+        }
+        
+        .navbar-nav {
+            width: auto;
+        }
+        
+        .nav-item {
+            margin: 0 0.25rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: #2d3748;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: #4361ee;
+            background: rgba(67, 97, 238, 0.05);
+        }
+        
+        .nav-link.active {
+            color: #4361ee;
+            font-weight: 600;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 3px;
+            background-color: #4361ee;
+            border-radius: 3px;
+        }
+        
+        /* Sidebar Styling */
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-title {
+            color: #2d3748;
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #4361ee, #3a0ca3);
+            border-radius: 3px;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #4361ee;
+            box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.2);
+        }
+        
+        .dropdown-toggle {
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+            position: relative;
+        }
+        
+        .dropdown-toggle::after {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .btn-outline-primary {
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid #4361ee;
+            color: #4361ee;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #4361ee;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.2);
+        }
+        
+        .dropdown-menu {
+            border-radius: 8px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+        }
+        
+        .dropdown-item {
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            margin: 0.25rem;
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover, .dropdown-item:focus {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: #4361ee;
+        }
+        
+        .dropdown-item.active {
+            background-color: #4361ee;
+        }
+        
+        .alert {
+            border-radius: 8px;
+        }
+    </style>
+
+    <title>OBPI Configuration</title>
+</head>
+<body>
+    <div class="nav-container">
+        <nav class="navbar navbar-expand-lg navbar-custom navbar-centered">
+            <div class="navbar-logo d-flex align-items-center me-3">
+                <a href="{{ url_for('index') }}" class="d-flex align-items-center text-white text-decoration-none">
+                    <img src="{{ url_for('static', filename='favicon.png') }}" alt="Logo" class="mr-2">
+                    <span class="ml-2 font-weight-bold text-white" style="font-size: 1.25rem;">Oracle Capital</span>
+                </a>
+            </div>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <!-- Navbar items removed -->
+                </ul>
+            </div>
+            
+        </nav>
+    </div>
+
+    <nav class="sidebar">
+        <div class="sidebar-content">
+            <h4 class="mb-4 text-center form-title">Portfolio Insurance Inputs</h4>
+            <form id="obpi-form" class="styled-form" method="POST" action="{{ url_for(current_route) }}">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="flash-messages">
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                                    <i class="bi {% if category == 'success' %}bi-check-circle{% else %}bi-exclamation-triangle{% endif %} mr-2"></i>
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <div class="form-group">
+                    <label for="initial-capital">Initial Capital ($)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+                        </div>
+                        <input type="number" class="form-control" id="initial-capital" name="initial_capital" value="{{ initial_capital }}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="floor">Floor (dec)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-percent"></i></span>
+                        </div>
+                        <input type="number" class="form-control" id="floor" name="floor" value="{{ floor }}" step="0.01" min="0" max="1" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="multiplier">Multiplier</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-percent"></i></span>
+                        </div>
+                        <input type="number" class="form-control" id="multiplier" name="multiplier" value="{{ multiplier }}" step="1" min="0" max="100" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="risky-ticker">Risky Ticker</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-arrow-up-right"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="risky-ticker" name="risky_ticker" value="{{ risky_ticker }}" placeholder="SPY" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="start-date">Start Date</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                        </div>
+                        <input type="text" class="form-control datepicker" id="start-date" name="start_date" value="{{ start_date }}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="end-date">End Date</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
+                        </div>
+                        <input type="text" class="form-control datepicker" id="end-date" name="end_date" value="{{ end_date }}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rebalance_frequency">Rebalance Frequency</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-percent"></i></span>
+                        </div>
+                        <input type="number" class="form-control" id="rebalance_frequency" name="rebalance_frequency" value="{{ rebalance_frequency }}" step="1" min="0" max="999999" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="risk-free-rate">Risk-Free Rate (dec)</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                        </div>
+                        <input type="number" class="form-control" id="risk-free-rate" name="risk_free_rate" value="{{ risk_free_rate }}" step="0.001" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary btn-block mt-4">
+                    <i class="bi bi-lightning-charge mr-2"></i>
+                        Run CPPI Simulation
+                </button>
+            </form>
+        </div>
+    </nav>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- External Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            flatpickr(".datepicker", {
+                altInput: true,
+                altFormat: "F j, Y",
+                dateFormat: "Y-m-d",
+                disableMobile: true,
+                theme: "airbnb"
+            });
+        });
+    </script>
+</body>
+</html>
